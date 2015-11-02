@@ -13,8 +13,10 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.EAGER)
+    @Column(name = "sender_id", nullable = false, updatable = false)
     private User sender;
     @ManyToOne(fetch = FetchType.EAGER)
+    @Column(name = "receiver_id", nullable = false, updatable = false)
     private User receiver;
     @ManyToOne
     @JoinColumn(name = "prev_message")
@@ -124,6 +126,7 @@ public class Message {
 
     @Override
     public int hashCode() {
+        System.out.println( this );
         int result = sender.hashCode();
         result = 31 * result + receiver.hashCode();
         result = 31 * result + content.hashCode();
@@ -132,4 +135,17 @@ public class Message {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", sender=" + sender +
+                ", receiver=" + receiver +
+                ", prevMessage=" + prevMessage +
+                ", content='" + content + '\'' +
+                ", date=" + date +
+                ", read=" + read +
+                ", replyMessages=" + replyMessages +
+                '}';
+    }
 }

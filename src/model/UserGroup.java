@@ -1,11 +1,13 @@
 package model;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "user_group")
+@XmlRootElement(namespace = "dao.model")
 public class UserGroup implements Serializable {
 
     @Id

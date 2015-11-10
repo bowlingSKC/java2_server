@@ -2,6 +2,9 @@ package dao;
 
 
 import model.Message;
+import model.User;
+
+import java.util.List;
 
 public interface MessageDao {
 

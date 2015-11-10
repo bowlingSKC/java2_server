@@ -26,7 +26,7 @@ public class ServiceEndPontImpl implements ServiceEndPoint {
     }
 
     @Override
-    public User login(String email, String password) {
+    public User login(String email, String password) throws Exception {
         return userDao.login(email, password);
     }
 
@@ -64,4 +64,5 @@ public class ServiceEndPontImpl implements ServiceEndPoint {
     public void joinToGroup(Group group, User user) {
         groupDao.join(group, user);
     }
+
 }

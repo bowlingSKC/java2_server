@@ -8,9 +8,11 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
+import javax.xml.bind.annotation.XmlList;
+import java.util.List;
 
-@WebService
-@SOAPBinding(style = SOAPBinding.Style.RPC)
+@WebService(name = "java2_server")
+@SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use=SOAPBinding.Use.LITERAL)
 public interface ServiceEndPoint {
 
     // USER START
@@ -18,7 +20,7 @@ public interface ServiceEndPoint {
     public void createUser(@WebParam(name = "newuser") User newUser) throws Exception;
 
     @WebMethod
-    public User login(@WebParam(name = "email") String email, @WebParam(name = "password") String password);
+    public User login(@WebParam(name = "email") String email, @WebParam(name = "password") String password) throws Exception;
 
     @WebMethod
     public void lostPassword(@WebParam(name = "email") String email) throws Exception;

@@ -1,16 +1,17 @@
 package model;
 
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "groups")
-@XmlRootElement(namespace = "dao.model")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Group implements Serializable {
 
     @Id
@@ -27,7 +28,8 @@ public class Group implements Serializable {
     private Date creation;
 
     @OneToMany(mappedBy = "group")
-    private Set<UserGroup> users = new HashSet<UserGroup>(0);
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<UserGroup> users = new ArrayList<UserGroup>(0);
 
     public Group() {
 
@@ -71,11 +73,11 @@ public class Group implements Serializable {
         this.creation = creation;
     }
 
-    public Set<UserGroup> getUsers() {
+    public List<UserGroup> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<UserGroup> users) {
+    public void setUsers(List<UserGroup> users) {
         this.users = users;
     }
 

@@ -1,6 +1,7 @@
 package dao.impl;
 
 import dao.UserDao;
+import exceptions.BadLoginException;
 import exceptions.EmailAlreadyExistsInDatabaseException;
 import exceptions.NoSuchEmailInDatabase;
 import jpa.SessionUtil;
@@ -53,19 +54,19 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User login(String email, String password) {
+    public User login(String email, String password) throws Exception {
         Session session = SessionUtil.openSession();
         Query query = session.createQuery("from User where email = :mail");
         query.setParameter("mail", email);
         User selected = (User) query.uniqueResult();
         if( selected == null ) {
             System.out.println("nincs talalat");
-            return new User();
+            throw new BadLoginException();
         }
 
         if( !selected.getPassword().equals(password) ) {
             System.out.println("rossz adatok");
-            return new User();
+            throw new BadLoginException();
         }
 
         session.close();
@@ -109,6 +110,9 @@ public class UserDaoImpl implements UserDao {
         if( user == null ) {
             throw new NoSuchEmailInDatabase();
         }
+
+        System.out.println( user );
+
         return user;
     }
 

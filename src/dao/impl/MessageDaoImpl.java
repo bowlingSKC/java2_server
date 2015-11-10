@@ -3,8 +3,12 @@ package dao.impl;
 import dao.MessageDao;
 import jpa.SessionUtil;
 import model.Message;
+import model.User;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.List;
 
 public class MessageDaoImpl implements MessageDao {
 

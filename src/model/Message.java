@@ -1,25 +1,25 @@
 package model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "message")
-@XmlRootElement(namespace = "dao.model")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "message")
 public class Message implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.EAGER)
-    @Column(name = "sender_id", nullable = false, updatable = false)
     private User sender;
     @ManyToOne(fetch = FetchType.EAGER)
-    @Column(name = "receiver_id", nullable = false, updatable = false)
     private User receiver;
     @ManyToOne
     @JoinColumn(name = "prev_message")
@@ -33,7 +33,8 @@ public class Message implements Serializable {
     private boolean read;
 
     @OneToMany(mappedBy = "prevMessage")
-    private Set<Message> replyMessages = new HashSet<Message>(0);
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Message> replyMessages = new ArrayList<Message>(0);
 
     public Message() {
 
@@ -103,11 +104,11 @@ public class Message implements Serializable {
         this.prevMessage = prevMessage;
     }
 
-    public Set<Message> getReplyMessages() {
+    public List<Message> getReplyMessages() {
         return replyMessages;
     }
 
-    public void setReplyMessages(Set<Message> replyMessages) {
+    public void setReplyMessages(List<Message> replyMessages) {
         this.replyMessages = replyMessages;
     }
 
@@ -129,7 +130,6 @@ public class Message implements Serializable {
 
     @Override
     public int hashCode() {
-        System.out.println( this );
         int result = sender.hashCode();
         result = 31 * result + receiver.hashCode();
         result = 31 * result + content.hashCode();

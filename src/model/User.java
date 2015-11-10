@@ -1,15 +1,18 @@
 package model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.lang.reflect.Array;
+import java.util.*;
 
 @Entity
 @Table(name = "user")
-@XmlRootElement(namespace = "dao.model")
+@XmlRootElement(name = "user")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class User implements Serializable {
 
     @Id
@@ -29,14 +32,21 @@ public class User implements Serializable {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "sender", cascade = CascadeType.ALL)
-    private Set<Message> outMessages = new HashSet<Message>(0);
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "receiver", cascade = CascadeType.ALL)
-    private Set<Message> inMessages = new HashSet<Message>(0);
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<UserGroup> myGroups = new HashSet<UserGroup>(0);
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "admin", cascade = CascadeType.ALL)
-    private Set<Group> ownGroup = new HashSet<Group>(0);
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Message> outMessages = new ArrayList<>(0);
+
+    @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Message> inMessages = new ArrayList<>(0);
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<UserGroup> myGroups = new ArrayList<>(0);
+
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Group> ownGroup = new ArrayList<>(0);
 
     public User() {
 
@@ -107,35 +117,35 @@ public class User implements Serializable {
         this.address = address;
     }
 
-    public Set<Message> getOutMessages() {
+    public List<Message> getOutMessages() {
         return outMessages;
     }
 
-    public void setOutMessages(Set<Message> outMessages) {
+    public void setOutMessages(List<Message> outMessages) {
         this.outMessages = outMessages;
     }
 
-    public Set<Message> getInMessages() {
+    public List<Message> getInMessages() {
         return inMessages;
     }
 
-    public void setInMessages(Set<Message> inMessages) {
+    public void setInMessages(List<Message> inMessages) {
         this.inMessages = inMessages;
     }
 
-    public Set<UserGroup> getMyGroups() {
+    public List<UserGroup> getMyGroups() {
         return myGroups;
     }
 
-    public void setMyGroups(Set<UserGroup> myGroups) {
+    public void setMyGroups(List<UserGroup> myGroups) {
         this.myGroups = myGroups;
     }
 
-    public Set<Group> getOwnGroup() {
+    public List<Group> getOwnGroup() {
         return ownGroup;
     }
 
-    public void setOwnGroup(Set<Group> ownGroup) {
+    public void setOwnGroup(List<Group> ownGroup) {
         this.ownGroup = ownGroup;
     }
 

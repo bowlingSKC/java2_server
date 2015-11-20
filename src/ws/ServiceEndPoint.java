@@ -8,6 +8,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebService(name = "java2_server")
@@ -39,10 +40,10 @@ public interface ServiceEndPoint {
     public void sendMessage(@WebParam(name = "message") Message message) throws Exception;
 
     @WebMethod
-    public List<Message> getOutMessages(@WebParam(name = "userId") Long id ) throws Exception;
+    public ArrayList<Message> getOutMessages(@WebParam(name = "userId") Long id ) throws Exception;
 
     @WebMethod
-    public List<Message> getInMessages(@WebParam(name = "userId") Long id ) throws Exception;
+    public ArrayList<Message> getInMessages(@WebParam(name = "userId") Long id ) throws Exception;
 
     @WebMethod
     public void updateMessage(@WebParam(name = "message") Message message) throws Exception;

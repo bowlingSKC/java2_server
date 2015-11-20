@@ -12,6 +12,7 @@ import model.User;
 import ws.ServiceEndPoint;
 
 import javax.jws.WebService;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebService(endpointInterface = "ws.ServiceEndPoint")
@@ -57,13 +58,13 @@ public class ServiceEndPontImpl implements ServiceEndPoint {
     }
 
     @Override
-    public List<Message> getOutMessages(Long id) throws Exception {
-        return messageDao.getOutMessages(id);
+    public ArrayList<Message> getOutMessages(Long id) throws Exception {
+        return new ArrayList<>(messageDao.getOutMessages(id));
     }
 
     @Override
-    public List<Message> getInMessages(Long id) throws Exception {
-        return messageDao.getInMessages(id);
+    public ArrayList<Message> getInMessages(Long id) throws Exception {
+        return new ArrayList<>(messageDao.getInMessages(id));
     }
 
     @Override

@@ -91,4 +91,9 @@ public class ServiceEndPontImpl implements ServiceEndPoint {
         groupDao.join(group, user);
     }
 
+    @Override
+    public void leveGroup(Group group, User user) throws Exception {
+        groupDao.leave(group, user);
+    }
+
 }

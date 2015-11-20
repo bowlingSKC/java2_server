@@ -5,9 +5,11 @@ import jpa.SessionUtil;
 import model.Group;
 import model.User;
 import model.UserGroup;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class GroupDaoImpl implements GroupDao {
@@ -43,6 +45,15 @@ public class GroupDaoImpl implements GroupDao {
 
     @Override
     public void leave(Group group, User user) throws Exception {
-        
+        Session session = SessionUtil.openSession();
+        Transaction tx = session.beginTransaction();
+        Query query = session.createQuery("from User where id = :id");
+        query.setParameter("id", user.getId());
+
+        user.getMyGroups().stream().filter(ug -> ug.getGroup().equals(group)).forEach(session::delete);
+
+        session.update(user);
+        tx.commit();
+        session.close();
     }
 }

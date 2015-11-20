@@ -8,11 +8,10 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
-import javax.xml.bind.annotation.XmlList;
 import java.util.List;
 
 @WebService(name = "java2_server")
-@SOAPBinding(style = SOAPBinding.Style.DOCUMENT, use=SOAPBinding.Use.LITERAL)
+@SOAPBinding(style = SOAPBinding.Style.RPC)
 public interface ServiceEndPoint {
 
     // USER START
@@ -51,7 +50,7 @@ public interface ServiceEndPoint {
     public void deleteMessages(@WebParam(name = "message") Message message) throws Exception;
     // MESSAGE END
 
-    // GROUPSERVICE STAR
+    // GROUPSERVICE START
     @WebMethod
     public void create(@WebParam(name = "group") Group group) throws Exception;
 
@@ -60,6 +59,9 @@ public interface ServiceEndPoint {
 
     @WebMethod
     public void joinToGroup(@WebParam(name = "group") Group group, @WebParam(name = "user") User user);
+
+    @WebMethod
+    public void leveGroup(@WebParam(name = "group")Group group, @WebParam(name = "user") User user) throws Exception;
     // GROUPSERVICE END
 
 }

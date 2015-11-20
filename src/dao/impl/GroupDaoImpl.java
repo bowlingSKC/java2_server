@@ -40,4 +40,9 @@ public class GroupDaoImpl implements GroupDao {
         tx.commit();
         session.close();
     }
+
+    @Override
+    public void leave(Group group, User user) throws Exception {
+        
+    }
 }

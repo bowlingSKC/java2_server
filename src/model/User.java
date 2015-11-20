@@ -4,9 +4,12 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.*;
+import java.io.File;
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Entity
@@ -34,18 +37,22 @@ public class User implements Serializable {
 
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @XmlTransient
     private List<Message> outMessages = new ArrayList<>(0);
 
     @OneToMany(mappedBy = "receiver", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @XmlTransient
     private List<Message> inMessages = new ArrayList<>(0);
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @XmlTransient
     private List<UserGroup> myGroups = new ArrayList<>(0);
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @XmlTransient
     private List<Group> ownGroup = new ArrayList<>(0);
 
     public User() {
@@ -172,5 +179,22 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return name + " [" + email + "]";
+    }
+
+    public void jaxbObjectToXML() {
+        try {
+            JAXBContext context = JAXBContext.newInstance(User.class);
+            Marshaller m = context.createMarshaller();
+            //for pretty-print XML in JAXB
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+            // Write to System.out for debugging
+            // m.marshal(emp, System.out);
+
+            // Write to File
+            m.marshal(this, new File("test.xml"));
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -30,11 +30,25 @@ public interface ServiceEndPoint {
 
     @WebMethod
     public User getUserByEmailAddress(@WebParam(name = "email") String email) throws Exception;
+
+    @WebMethod
+    public void deleteUser(@WebParam(name = "user") User user) throws Exception;
     // USER END
 
     // MESSAGE START
     @WebMethod
     public void sendMessage(@WebParam(name = "message") Message message) throws Exception;
+
+    @WebMethod
+    public List<Message> getOutMessages(@WebParam(name = "userId") Long id ) throws Exception;
+
+    @WebMethod
+    public List<Message> getInMessages(@WebParam(name = "userId") Long id ) throws Exception;
+
+    @WebMethod
+    public void updateMessage(@WebParam(name = "message") Message message) throws Exception;
+
+    public void deleteMessages(@WebParam(name = "message") Message message) throws Exception;
     // MESSAGE END
 
     // GROUPSERVICE STAR

@@ -39,4 +39,26 @@ public class MessageDaoImpl implements MessageDao {
         session.close();
     }
 
+    @Override
+    public List<Message> getOutMessages(Long id) {
+        List<Message> messages = null;
+        Session session = SessionUtil.openSession();
+        Query query = session.createQuery("from User where id = :id");
+        query.setParameter("id", id);
+        messages = ((User)query.uniqueResult()).getOutMessages();
+        session.close();
+        return messages;
+    }
+
+    @Override
+    public List<Message> getInMessages(Long id) {
+        List<Message> messages = null;
+        Session session = SessionUtil.openSession();
+        Query query = session.createQuery("from User where id = :id");
+        query.setParameter("id", id);
+        messages = ((User)query.uniqueResult()).getInMessages();
+        session.close();
+        return messages;
+    }
+
 }

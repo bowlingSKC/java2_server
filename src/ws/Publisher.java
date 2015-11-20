@@ -13,7 +13,7 @@ public class Publisher {
         Session session = SessionUtil.openSession();
         session.close();
 
-        Endpoint.publish("http://192.168.0.30:4444/ws/ep", new ServiceEndPontImpl());
+        Endpoint.publish("http://localhost:4444/ws/ep", new ServiceEndPontImpl());
         System.out.println("Server listening ...");
 
     }

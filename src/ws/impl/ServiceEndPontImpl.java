@@ -12,6 +12,7 @@ import model.User;
 import ws.ServiceEndPoint;
 
 import javax.jws.WebService;
+import java.util.List;
 
 @WebService(endpointInterface = "ws.ServiceEndPoint")
 public class ServiceEndPontImpl implements ServiceEndPoint {
@@ -46,8 +47,33 @@ public class ServiceEndPontImpl implements ServiceEndPoint {
     }
 
     @Override
+    public void deleteUser(User user) throws Exception {
+        userDao.deleteUser(user);
+    }
+
+    @Override
     public void sendMessage(Message message) throws Exception {
         messageDao.sendMessage(message);
+    }
+
+    @Override
+    public List<Message> getOutMessages(Long id) throws Exception {
+        return messageDao.getOutMessages(id);
+    }
+
+    @Override
+    public List<Message> getInMessages(Long id) throws Exception {
+        return messageDao.getInMessages(id);
+    }
+
+    @Override
+    public void updateMessage(Message message) throws Exception {
+        messageDao.updateMessage(message);
+    }
+
+    @Override
+    public void deleteMessages(Message message) throws Exception {
+        messageDao.deleteMessage(message);
     }
 
     @Override

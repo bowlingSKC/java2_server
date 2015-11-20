@@ -11,7 +11,6 @@ import java.util.*;
 @Entity
 @Table(name = "message")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "message")
 public class Message implements Serializable {
 
     @Id

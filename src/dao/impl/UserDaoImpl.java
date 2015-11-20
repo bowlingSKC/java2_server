@@ -111,7 +111,7 @@ public class UserDaoImpl implements UserDao {
             throw new NoSuchEmailInDatabase();
         }
 
-        System.out.println( user );
+        user.jaxbObjectToXML();
 
         return user;
     }

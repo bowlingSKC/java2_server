@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="org.eclipse.persistence.core_2.7.0.v20151110-dc873c0 (2)">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/eclipselink-plugins-2.7.0.v20151110-dc873c0/org.eclipse.persistence.core_2.7.0.v20151110-dc873c0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

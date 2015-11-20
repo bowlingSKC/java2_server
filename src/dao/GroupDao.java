@@ -9,4 +9,6 @@ public interface GroupDao {
     public void delete(Group group);
     public void join(Group group, User user);
 
+    public void leave(Group group, User user) throws Exception;
+
 }

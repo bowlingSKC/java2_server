@@ -2,7 +2,7 @@ package ws;
 
 import jpa.SessionUtil;
 import org.hibernate.Session;
-import ws.impl.ServiceEndPontImpl;
+import ws.impl.ServiceEndPointImpl;
 
 import javax.xml.ws.Endpoint;
 
@@ -13,7 +13,7 @@ public class Publisher {
         Session session = SessionUtil.openSession();
         session.close();
 
-        Endpoint.publish("http://localhost:4444/ws/ep", new ServiceEndPontImpl());
+        Endpoint.publish("http://localhost:4444/ws/ep", new ServiceEndPointImpl());
         System.out.println("Server listening ...");
 
     }

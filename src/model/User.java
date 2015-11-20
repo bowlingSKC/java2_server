@@ -35,6 +35,11 @@ public class User implements Serializable {
     @Column(name = "address", nullable = false)
     private String address;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @XmlTransient
+    private List<Event> myEvents = new ArrayList<>(0);
+
     @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
     @XmlTransient

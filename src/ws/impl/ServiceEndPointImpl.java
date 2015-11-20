@@ -1,11 +1,14 @@
 package ws.impl;
 
+import dao.EventDao;
 import dao.GroupDao;
 import dao.MessageDao;
 import dao.UserDao;
+import dao.impl.EventDaoImpl;
 import dao.impl.GroupDaoImpl;
 import dao.impl.MessageDaoImpl;
 import dao.impl.UserDaoImpl;
+import model.Event;
 import model.Group;
 import model.Message;
 import model.User;
@@ -16,11 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebService(endpointInterface = "ws.ServiceEndPoint")
-public class ServiceEndPontImpl implements ServiceEndPoint {
+public class ServiceEndPointImpl implements ServiceEndPoint {
 
     private UserDao userDao = new UserDaoImpl();
     private MessageDao messageDao = new MessageDaoImpl();
     private GroupDao groupDao = new GroupDaoImpl();
+    private EventDao eventDao = new EventDaoImpl();
 
     @Override
     public void createUser(User newUser) throws Exception {
@@ -38,7 +42,7 @@ public class ServiceEndPontImpl implements ServiceEndPoint {
     }
 
     @Override
-    public void updateUser(User user) {
+    public void updateUser(User user) throws Exception {
         userDao.updateUser(user);
     }
 
@@ -83,18 +87,33 @@ public class ServiceEndPontImpl implements ServiceEndPoint {
     }
 
     @Override
-    public void delete(Group group) {
+    public void delete(Group group) throws Exception {
         groupDao.delete(group);
     }
 
     @Override
-    public void joinToGroup(Group group, User user) {
+    public void joinToGroup(Group group, User user) throws Exception {
         groupDao.join(group, user);
     }
 
     @Override
     public void leveGroup(Group group, User user) throws Exception {
         groupDao.leave(group, user);
+    }
+
+    @Override
+    public void createEvent(Event event) throws Exception {
+        eventDao.createEvent(event);
+    }
+
+    @Override
+    public void deleteEvent(Event event) throws Exception {
+        eventDao.deleteEvent(event);
+    }
+
+    @Override
+    public void updateEvent(Event event) throws Exception {
+        eventDao.updateEvent(event);
     }
 
 }

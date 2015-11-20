@@ -31,6 +31,10 @@ public class Group implements Serializable {
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<UserGroup> users = new ArrayList<UserGroup>(0);
 
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Event> events = new ArrayList<>(0);
+
     public Group() {
 
     }
@@ -87,6 +91,14 @@ public class Group implements Serializable {
 
     public void setAdmin(User admin) {
         this.admin = admin;
+    }
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 
     @Override

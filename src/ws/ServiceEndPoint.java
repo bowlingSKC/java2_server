@@ -1,5 +1,6 @@
 package ws;
 
+import model.Event;
 import model.Group;
 import model.Message;
 import model.User;
@@ -26,7 +27,7 @@ public interface ServiceEndPoint {
     public void lostPassword(@WebParam(name = "email") String email) throws Exception;
 
     @WebMethod
-    public void updateUser(@WebParam(name = "user") User user);
+    public void updateUser(@WebParam(name = "user") User user) throws Exception;
 
     @WebMethod
     public User getUserByEmailAddress(@WebParam(name = "email") String email) throws Exception;
@@ -56,13 +57,24 @@ public interface ServiceEndPoint {
     public void create(@WebParam(name = "group") Group group) throws Exception;
 
     @WebMethod
-    public void delete(@WebParam(name = "group") Group group);
+    public void delete(@WebParam(name = "group") Group group) throws Exception;
 
     @WebMethod
-    public void joinToGroup(@WebParam(name = "group") Group group, @WebParam(name = "user") User user);
+    public void joinToGroup(@WebParam(name = "group") Group group, @WebParam(name = "user") User user) throws Exception;
 
     @WebMethod
     public void leveGroup(@WebParam(name = "group")Group group, @WebParam(name = "user") User user) throws Exception;
     // GROUPSERVICE END
+
+    // EVENTSERVICE START
+    @WebMethod
+    public void createEvent(@WebParam(name = "event") Event event) throws Exception;
+
+    @WebMethod
+    public void deleteEvent(@WebParam(name = "event")Event event) throws Exception;
+
+    @WebMethod
+    public void updateEvent(@WebParam(name = "event")Event event) throws Exception;
+    // EVENTSERVICE END
 
 }

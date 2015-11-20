@@ -22,6 +22,7 @@
         <mapping class="model.UserGroup" />
         <mapping class="model.Group" />
         <mapping class="model.Event" />
+        <mapping class="model.Location" />
 
     </session-factory>
 </hibernate-configuration>

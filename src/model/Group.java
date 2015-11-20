@@ -36,7 +36,6 @@ public class Group implements Serializable {
     private List<Event> events = new ArrayList<>(0);
 
     public Group() {
-
     }
 
     public Group(String name, String description, Date creation) {

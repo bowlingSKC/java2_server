@@ -1,9 +1,6 @@
 package ws;
 
-import model.Event;
-import model.Group;
-import model.Message;
-import model.User;
+import model.*;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -76,5 +73,18 @@ public interface ServiceEndPoint {
     @WebMethod
     public void updateEvent(@WebParam(name = "event")Event event) throws Exception;
     // EVENTSERVICE END
+
+    // LOCATION SERVICE START
+    @WebMethod
+    public void createLocation(@WebParam(name = "location") Location location) throws Exception;
+
+    @WebMethod
+    public void updateLocation(@WebParam(name = "location") Location location) throws Exception;
+
+    @WebMethod
+    public void deleteLocation(@WebParam(name = "location") Location location) throws Exception;
+
+    public ArrayList<Location> getAllLocation() throws Exception;
+    // LOCATION SERVICE END
 
 }

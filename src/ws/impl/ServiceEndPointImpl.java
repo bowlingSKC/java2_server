@@ -1,17 +1,8 @@
 package ws.impl;
 
-import dao.EventDao;
-import dao.GroupDao;
-import dao.MessageDao;
-import dao.UserDao;
-import dao.impl.EventDaoImpl;
-import dao.impl.GroupDaoImpl;
-import dao.impl.MessageDaoImpl;
-import dao.impl.UserDaoImpl;
-import model.Event;
-import model.Group;
-import model.Message;
-import model.User;
+import dao.*;
+import dao.impl.*;
+import model.*;
 import ws.ServiceEndPoint;
 
 import javax.jws.WebService;
@@ -25,6 +16,7 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
     private MessageDao messageDao = new MessageDaoImpl();
     private GroupDao groupDao = new GroupDaoImpl();
     private EventDao eventDao = new EventDaoImpl();
+    private LocationDao locationDao = new LocationDaoImpl();
 
     @Override
     public void createUser(User newUser) throws Exception {
@@ -114,6 +106,26 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
     @Override
     public void updateEvent(Event event) throws Exception {
         eventDao.updateEvent(event);
+    }
+
+    @Override
+    public void createLocation(Location location) throws Exception {
+        locationDao.createLocation(location);
+    }
+
+    @Override
+    public void updateLocation(Location location) throws Exception {
+        locationDao.updateLocation(location);
+    }
+
+    @Override
+    public void deleteLocation(Location location) throws Exception {
+        locationDao.deleteLocation(location);
+    }
+
+    @Override
+    public ArrayList<Location> getAllLocation() throws Exception {
+        return new ArrayList<>(locationDao.getAllLocation());
     }
 
 }

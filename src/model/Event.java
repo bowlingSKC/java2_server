@@ -30,6 +30,10 @@ public class Event {
     @XmlTransient
     private Group group;
 
+    @ManyToOne
+    @JoinColumn(name="location_id")
+    private Location location;
+
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "myEvents")
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<User> users = new ArrayList<>(0);
@@ -101,5 +105,11 @@ public class Event {
         this.group = group;
     }
 
+    public Location getLocation() {
+        return location;
+    }
 
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }

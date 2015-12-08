@@ -62,7 +62,7 @@ public class UserDaoImpl implements UserDao {
             throw new BadLoginException();
         }
 
-        if( !selected.getPassword().equals(password) ) {
+        if( !Helper.getSHA512Hash(password, selected.getSalt()).equals(selected.getPassword()) ) {
             throw new BadLoginException();
         }
 

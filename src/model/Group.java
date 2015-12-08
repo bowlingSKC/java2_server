@@ -26,6 +26,9 @@ public class Group implements Serializable {
     @Column(name = "creation")
     @Temporal(TemporalType.DATE)
     private Date creation;
+    @Column( name = "IMAGE" )
+    @Lob
+    private byte[] image;
 
     @OneToMany(mappedBy = "group")
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -98,6 +101,14 @@ public class Group implements Serializable {
 
     public void setEvents(List<Event> events) {
         this.events = events;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     @Override

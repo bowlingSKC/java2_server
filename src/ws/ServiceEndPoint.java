@@ -61,6 +61,12 @@ public interface ServiceEndPoint {
 
     @WebMethod
     public void leveGroup(@WebParam(name = "group")Group group, @WebParam(name = "user") User user) throws Exception;
+
+    @WebMethod
+    public List<User> getUsersByGroup(@WebParam(name = "group") Group group) throws Exception;
+
+    @WebMethod
+    public List<Event> getEventsByGroup(@WebParam(name = "group") Group group) throws Exception;
     // GROUPSERVICE END
 
     // EVENTSERVICE START
@@ -72,6 +78,12 @@ public interface ServiceEndPoint {
 
     @WebMethod
     public void updateEvent(@WebParam(name = "event")Event event) throws Exception;
+
+    @WebMethod
+    public void joinEvent(@WebParam(name = "user")User user, @WebParam(name = "event")Event event) throws Exception;
+
+    @WebMethod
+    public void leaveEvent(@WebParam(name = "user")User user, @WebParam(name = "event")Event event) throws Exception;
     // EVENTSERVICE END
 
     // LOCATION SERVICE START

@@ -1,7 +1,9 @@
 package dao.impl;
 
 import dao.GroupDao;
+import exceptions.NoSuchGroupInDatabase;
 import jpa.SessionUtil;
+import model.Event;
 import model.Group;
 import model.User;
 import model.UserGroup;
@@ -11,6 +13,8 @@ import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class GroupDaoImpl implements GroupDao {
 
@@ -55,5 +59,43 @@ public class GroupDaoImpl implements GroupDao {
         session.update(user);
         tx.commit();
         session.close();
+    }
+
+    @Override
+    public List<User> getGroupUser(Group group) throws Exception {
+        Session session = SessionUtil.openSession();
+        Transaction tx = session.beginTransaction();
+        Query query = session.createQuery("from Group where id = :id");
+        query.setParameter("id", group.getId());
+
+        Group selected = (Group) query.uniqueResult();
+        if( selected == null ) {
+            throw new NoSuchGroupInDatabase();
+        }
+
+        List<User> users = selected.getUsers().stream().map(UserGroup::getUser).collect(Collectors.toList());
+
+        tx.commit();
+        session.close();
+
+        return users;
+    }
+
+    @Override
+    public List<Event> getGroupEvent(Group group) throws Exception {
+        Session session = SessionUtil.openSession();
+        Transaction tx = session.beginTransaction();
+        Query query = session.createQuery("from Group where id = :id");
+        query.setParameter("id", group.getId());
+
+        Group selected = (Group) query.uniqueResult();
+        if( selected == null ) {
+            throw new NoSuchGroupInDatabase();
+        }
+
+        tx.commit();
+        session.close();
+
+        return selected.getEvents();
     }
 }

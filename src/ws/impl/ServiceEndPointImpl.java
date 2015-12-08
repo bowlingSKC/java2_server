@@ -96,6 +96,16 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
     }
 
     @Override
+    public List<User> getUsersByGroup(Group group) throws Exception {
+        return groupDao.getGroupUser(group);
+    }
+
+    @Override
+    public List<Event> getEventsByGroup(Group group) throws Exception {
+        return groupDao.getGroupEvent(group);
+    }
+
+    @Override
     public void createEvent(Event event) throws Exception {
         eventDao.createEvent(event);
     }
@@ -108,6 +118,16 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
     @Override
     public void updateEvent(Event event) throws Exception {
         eventDao.updateEvent(event);
+    }
+
+    @Override
+    public void joinEvent(User user, Event event) throws Exception {
+        eventDao.joinEvent(user, event);
+    }
+
+    @Override
+    public void leaveEvent(User user, Event event) throws Exception {
+        eventDao.leaveEvent(user, event);
     }
 
     @Override

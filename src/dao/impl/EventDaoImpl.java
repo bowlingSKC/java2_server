@@ -4,8 +4,10 @@ import dao.EventDao;
 import jpa.SessionUtil;
 import model.Event;
 import model.User;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import ws.Publisher;
 
 public class EventDaoImpl implements EventDao {
 
@@ -16,6 +18,8 @@ public class EventDaoImpl implements EventDao {
         session.save(event);
         tx.commit();
         session.close();
+
+        Publisher.LOGGER.trace("Uj esemenyt hoztak letre: " + event.getName());
     }
 
     @Override
@@ -25,6 +29,8 @@ public class EventDaoImpl implements EventDao {
         session.delete(event);
         tx.commit();
         session.close();
+
+        Publisher.LOGGER.trace("Egy esemenyt toroltek: " + event.getName());
     }
 
     @Override
@@ -34,6 +40,8 @@ public class EventDaoImpl implements EventDao {
         session.update(event);
         tx.commit();
         session.close();
+
+        Publisher.LOGGER.trace("Esemenyt valtoztattak: " + event.getName());
     }
 
     @Override

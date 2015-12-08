@@ -6,6 +6,7 @@ import model.Location;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import ws.Publisher;
 
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class LocationDaoImpl implements LocationDao {
         session.save(location);
         tx.commit();
         session.close();
+
+        Publisher.LOGGER.trace("Uj helyet hoztak letre: " + location.getName());
     }
 
     @Override
@@ -27,6 +30,8 @@ public class LocationDaoImpl implements LocationDao {
         session.delete(location);
         tx.commit();
         session.close();
+
+        Publisher.LOGGER.trace("Egy helyet toroltek: " + location.getName());
     }
 
     @Override
@@ -36,6 +41,8 @@ public class LocationDaoImpl implements LocationDao {
         session.update(location);
         tx.commit();
         session.close();
+
+        Publisher.LOGGER.trace("Egy helyet valtoztattak: " + location.getName());
     }
 
     @Override

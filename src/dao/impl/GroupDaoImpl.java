@@ -10,6 +10,7 @@ import model.UserGroup;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import ws.Publisher;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,6 +26,8 @@ public class GroupDaoImpl implements GroupDao {
         session.save(group);
         tx.commit();
         session.close();
+
+        Publisher.LOGGER.trace("Uj csoportot hoztak letre: " + group.getName());
     }
 
     @Override
@@ -34,6 +37,8 @@ public class GroupDaoImpl implements GroupDao {
         session.delete(group);
         tx.commit();
         session.close();
+
+        Publisher.LOGGER.trace("Egy csoportot toroltek: " + group.getName());
     }
 
     @Override

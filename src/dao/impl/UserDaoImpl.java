@@ -10,6 +10,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ws.Helper;
+import ws.Publisher;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -43,6 +44,8 @@ public class UserDaoImpl implements UserDao {
         session.save(newUser);
         tx.commit();
         session.close();
+
+        Publisher.LOGGER.info("Regisztraltak: " + newUser.getName());
     }
 
     @Override
@@ -52,6 +55,8 @@ public class UserDaoImpl implements UserDao {
         session.delete(user);
         tx.commit();
         session.close();
+
+        Publisher.LOGGER.trace("Egy user torolte magat: " + user.getName());
     }
 
     @Override
@@ -65,6 +70,7 @@ public class UserDaoImpl implements UserDao {
         }
 
         if( !Helper.getSHA512Hash(password, selected.getSalt()).equals(selected.getPassword()) ) {
+            Publisher.LOGGER.warn("Hibas jelszoval probaltak belepni:" + email);
             throw new BadLoginException();
         }
 
@@ -80,6 +86,7 @@ public class UserDaoImpl implements UserDao {
         User user = (User) query.uniqueResult();
         session.close();
         if( user == null ) {
+            Publisher.LOGGER.warn("Hibas jelszoval probaltak uj jelszot generalni:" + email);
             throw new NoSuchEmailInDatabase();
         }
 
@@ -91,6 +98,8 @@ public class UserDaoImpl implements UserDao {
         user.setSalt(newSalt);
         user.setPassword(newPass);
         updateUser(user);
+
+        Publisher.LOGGER.info("Uj jelszot generaltatott:" + email);
     }
 
     @Override

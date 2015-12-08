@@ -1,8 +1,5 @@
 package model;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
@@ -10,6 +7,7 @@ import java.util.*;
 
 @Entity
 @Table(name = "message")
+@XmlRootElement(name = "message")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso({User.class})
 public class Message implements Serializable {
@@ -24,11 +22,6 @@ public class Message implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private User receiver;
 
-    @ManyToOne
-    @JoinColumn(name = "prev_message")
-    @XmlTransient
-    private Message prevMessage;
-
     @Column(name = "content")
     private String content;
 
@@ -38,11 +31,6 @@ public class Message implements Serializable {
 
     @Column(name = "is_read")
     private boolean read;
-
-    @OneToMany(mappedBy = "prevMessage")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @XmlTransient
-    private List<Message> replyMessages = new ArrayList<Message>(0);
 
     public Message() {
 
@@ -104,22 +92,6 @@ public class Message implements Serializable {
         this.read = read;
     }
 
-    public Message getPrevMessage() {
-        return prevMessage;
-    }
-
-    public void setPrevMessage(Message prevMessage) {
-        this.prevMessage = prevMessage;
-    }
-
-    public List<Message> getReplyMessages() {
-        return replyMessages;
-    }
-
-    public void setReplyMessages(List<Message> replyMessages) {
-        this.replyMessages = replyMessages;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -152,11 +124,9 @@ public class Message implements Serializable {
                 "id=" + id +
                 ", sender=" + sender +
                 ", receiver=" + receiver +
-                ", prevMessage=" + prevMessage +
                 ", content='" + content + '\'' +
                 ", date=" + date +
                 ", read=" + read +
-                ", replyMessages=" + replyMessages +
                 '}';
     }
 }

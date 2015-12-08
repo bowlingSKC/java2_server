@@ -2,19 +2,21 @@ package dao.impl;
 
 import dao.MessageDao;
 import jpa.SessionUtil;
-import model.Message;
-import model.User;
+import model.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import ws.Wrapper;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+@XmlSeeAlso({Message.class, User.class, Group.class, Location.class, Message.class, UserGroup.class})
 public class MessageDaoImpl implements MessageDao {
 
     @Override
@@ -45,7 +47,7 @@ public class MessageDaoImpl implements MessageDao {
     }
 
     @Override
-    public List<Message> getOutMessages(Long id) {
+    public Wrapper<Message> getOutMessages(Long id) {
         List<Message> messages = null;
         Session session = SessionUtil.openSession();
         Query query = session.createQuery("from User where id = :id");
@@ -53,8 +55,11 @@ public class MessageDaoImpl implements MessageDao {
         messages = ((User)query.uniqueResult()).getOutMessages();
         session.close();
 
+        System.out.println(messages);
+
+        /*
         try {
-            JAXBContext context = JAXBContext.newInstance(User.class);
+            JAXBContext context = JAXBContext.newInstance(Message.class);
             Marshaller m = context.createMarshaller();
             //for pretty-print XML in JAXB
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
@@ -67,8 +72,9 @@ public class MessageDaoImpl implements MessageDao {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
+        */
 
-        return messages;
+        return new Wrapper<>(messages);
     }
 
     @Override

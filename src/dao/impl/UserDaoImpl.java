@@ -5,7 +5,10 @@ import exceptions.BadLoginException;
 import exceptions.EmailAlreadyExistsInDatabaseException;
 import exceptions.NoSuchEmailInDatabase;
 import jpa.SessionUtil;
+import model.Group;
+import model.Location;
 import model.User;
+import model.UserGroup;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -18,8 +21,10 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.Properties;
 
+@XmlSeeAlso({model.Message.class, User.class, Group.class, Location.class, model.Message.class, UserGroup.class})
 public class UserDaoImpl implements UserDao {
 
     @Override

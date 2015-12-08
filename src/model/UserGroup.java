@@ -8,6 +8,7 @@ import java.util.Date;
 @Entity
 @Table(name = "user_group")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "usergroup")
 public class UserGroup implements Serializable {
 
     @Id

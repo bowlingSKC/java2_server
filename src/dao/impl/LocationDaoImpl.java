@@ -2,14 +2,16 @@ package dao.impl;
 
 import dao.LocationDao;
 import jpa.SessionUtil;
-import model.Location;
+import model.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ws.Publisher;
 
+import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.List;
 
+@XmlSeeAlso({Message.class, User.class, Group.class, Location.class, Message.class, UserGroup.class})
 public class LocationDaoImpl implements LocationDao {
 
     @Override

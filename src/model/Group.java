@@ -12,6 +12,7 @@ import java.util.*;
 @Entity
 @Table(name = "groups")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "group")
 public class Group implements Serializable {
 
     @Id

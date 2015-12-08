@@ -1,9 +1,11 @@
 package model;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "location")
+@XmlRootElement(name = "location")
 public class Location {
 
     @Id

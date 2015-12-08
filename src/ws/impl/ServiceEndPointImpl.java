@@ -7,12 +7,14 @@ import ws.ServiceEndPoint;
 import ws.Wrapper;
 
 import javax.jws.WebService;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.ws.soap.MTOM;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebService(endpointInterface = "ws.ServiceEndPoint")
 @MTOM(enabled = true)
+@XmlSeeAlso({Message.class, User.class, Group.class, Location.class, Message.class, UserGroup.class})
 public class ServiceEndPointImpl implements ServiceEndPoint {
 
     private UserDao userDao = new UserDaoImpl();
@@ -58,7 +60,7 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
 
     @Override
     public Wrapper<Message> getOutMessages(Long id) throws Exception {
-        return new Wrapper<>(messageDao.getOutMessages(id));
+        return messageDao.getOutMessages(id);
     }
 
     @Override

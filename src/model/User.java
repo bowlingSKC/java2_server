@@ -16,6 +16,7 @@ import java.util.*;
 @Table(name = "user")
 @XmlRootElement(name = "user")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({Message.class})
 public class User implements Serializable {
 
     @Id

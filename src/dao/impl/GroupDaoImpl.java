@@ -3,20 +3,19 @@ package dao.impl;
 import dao.GroupDao;
 import exceptions.NoSuchGroupInDatabase;
 import jpa.SessionUtil;
-import model.Event;
-import model.Group;
-import model.User;
-import model.UserGroup;
+import model.*;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ws.Publisher;
 
+import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@XmlSeeAlso({Message.class, User.class, Group.class, Location.class, Message.class, UserGroup.class})
 public class GroupDaoImpl implements GroupDao {
 
     @Override

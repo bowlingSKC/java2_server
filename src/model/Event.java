@@ -4,11 +4,13 @@ import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.util.*;
 
 @Entity
 @Table(name = "group_event")
+@XmlRootElement(name = "event")
 public class Event {
 
     @Id

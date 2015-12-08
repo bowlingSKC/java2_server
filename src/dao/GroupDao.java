@@ -13,6 +13,8 @@ public interface GroupDao {
     public void delete(Group group);
     public void join(Group group, User user);
 
+    public Group getGroupByName(String name) throws Exception;
+
     public void leave(Group group, User user) throws Exception;
 
     public Wrapper<User> getGroupUser(Group group) throws Exception;

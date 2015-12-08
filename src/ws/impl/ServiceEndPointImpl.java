@@ -33,6 +33,7 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
         return userDao.login(email, password);
     }
 
+
     @Override
     public void lostPassword(String email) throws Exception {
         userDao.lostPassword(email);
@@ -96,6 +97,11 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
     @Override
     public void leveGroup(Group group, User user) throws Exception {
         groupDao.leave(group, user);
+    }
+
+    @Override
+    public Group getGroupByName(String name) throws Exception {
+        return groupDao.getGroupByName(name);
     }
 
     @Override

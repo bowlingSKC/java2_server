@@ -47,9 +47,25 @@ public class GroupDaoImpl implements GroupDao {
 
         Session session = SessionUtil.openSession();
         Transaction tx = session.beginTransaction();
+
+        session.update(group);
+        session.update(user);
         session.save(userGroup);
         tx.commit();
         session.close();
+    }
+
+    @Override
+    public Group getGroupByName(String name) throws Exception {
+        Session session = SessionUtil.openSession();
+        Transaction tx = session.beginTransaction();
+        Query query = session.createQuery("FROM Group WHERE name LIKE :name");
+        query.setParameter("name", name);
+        Group asd = (Group) query.uniqueResult();
+        tx.commit();
+        session.close();
+
+        return asd;
     }
 
     @Override

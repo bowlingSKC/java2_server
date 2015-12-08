@@ -11,28 +11,37 @@ import java.util.*;
 @Entity
 @Table(name = "message")
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({User.class})
 public class Message implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private User sender;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private User receiver;
+
     @ManyToOne
     @JoinColumn(name = "prev_message")
+    @XmlTransient
     private Message prevMessage;
+
     @Column(name = "content")
     private String content;
+
     @Column(name = "date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
+
     @Column(name = "is_read")
     private boolean read;
 
     @OneToMany(mappedBy = "prevMessage")
     @LazyCollection(LazyCollectionOption.FALSE)
+    @XmlTransient
     private List<Message> replyMessages = new ArrayList<Message>(0);
 
     public Message() {

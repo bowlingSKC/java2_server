@@ -107,6 +107,11 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
     }
 
     @Override
+    public Wrapper<Group> getAllGroup() throws Exception {
+        return new Wrapper<>(groupDao.getAllGroup());
+    }
+
+    @Override
     public void createEvent(Event event) throws Exception {
         eventDao.createEvent(event);
     }

@@ -204,21 +204,4 @@ public class User implements Serializable {
     public String toString() {
         return name + " [" + email + "]";
     }
-
-    public void jaxbObjectToXML() {
-        try {
-            JAXBContext context = JAXBContext.newInstance(User.class);
-            Marshaller m = context.createMarshaller();
-            //for pretty-print XML in JAXB
-            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-
-            // Write to System.out for debugging
-            // m.marshal(emp, System.out);
-
-            // Write to File
-            m.marshal(this, new File("test.xml"));
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-    }
 }

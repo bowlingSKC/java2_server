@@ -17,4 +17,6 @@ public interface GroupDao {
     public List<User> getGroupUser(Group group) throws Exception;
     public List<Event> getGroupEvent(Group group) throws Exception;
 
+    public List<Group> getAllGroup() throws Exception;
+
 }

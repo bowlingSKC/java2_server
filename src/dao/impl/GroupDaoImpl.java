@@ -103,4 +103,18 @@ public class GroupDaoImpl implements GroupDao {
 
         return selected.getEvents();
     }
+
+    @Override
+    public List<Group> getAllGroup() throws Exception {
+        Session session = SessionUtil.openSession();
+        Transaction tx = session.beginTransaction();
+        Query query = session.createQuery("from Group");
+
+        List<Group> groups = query.list();
+
+        tx.commit();
+        session.close();
+
+        return groups;
+    }
 }

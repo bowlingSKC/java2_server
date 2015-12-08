@@ -8,6 +8,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageDaoImpl implements MessageDao {
@@ -47,6 +52,22 @@ public class MessageDaoImpl implements MessageDao {
         query.setParameter("id", id);
         messages = ((User)query.uniqueResult()).getOutMessages();
         session.close();
+
+        try {
+            JAXBContext context = JAXBContext.newInstance(User.class);
+            Marshaller m = context.createMarshaller();
+            //for pretty-print XML in JAXB
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+
+            // Write to System.out for debugging
+            // m.marshal(emp, System.out);
+
+            // Write to File
+            m.marshal(new ArrayList<>(messages), new File("test.xml"));
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+
         return messages;
     }
 

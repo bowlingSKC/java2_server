@@ -65,6 +65,9 @@ public interface ServiceEndPoint {
 
     @WebMethod
     public Wrapper<Event> getEventsByGroup(@WebParam(name = "group") Group group) throws Exception;
+
+    @WebMethod
+    public Wrapper<Group> getAllGroup() throws Exception;
     // GROUPSERVICE END
 
     // EVENTSERVICE START

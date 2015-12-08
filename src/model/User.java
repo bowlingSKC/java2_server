@@ -34,6 +34,9 @@ public class User implements Serializable {
     private Date bithday;
     @Column(name = "address", nullable = false)
     private String address;
+    @Column( name = "IMAGE" )
+    @Lob
+    private byte[] profileImage;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -159,6 +162,22 @@ public class User implements Serializable {
 
     public void setOwnGroup(List<Group> ownGroup) {
         this.ownGroup = ownGroup;
+    }
+
+    public byte[] getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(byte[] profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public List<Event> getMyEvents() {
+        return myEvents;
+    }
+
+    public void setMyEvents(List<Event> myEvents) {
+        this.myEvents = myEvents;
     }
 
     @Override

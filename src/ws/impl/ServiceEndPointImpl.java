@@ -6,10 +6,12 @@ import model.*;
 import ws.ServiceEndPoint;
 
 import javax.jws.WebService;
+import javax.xml.ws.soap.MTOM;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebService(endpointInterface = "ws.ServiceEndPoint")
+@MTOM(enabled = true)
 public class ServiceEndPointImpl implements ServiceEndPoint {
 
     private UserDao userDao = new UserDaoImpl();

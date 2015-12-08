@@ -17,9 +17,7 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.security.SecureRandom;
 import java.util.Properties;
-import java.util.Random;
 
 public class UserDaoImpl implements UserDao {
 
@@ -36,6 +34,10 @@ public class UserDaoImpl implements UserDao {
             throw new EmailAlreadyExistsInDatabaseException();
         }
 
+        String salt = Helper.getSalt();
+        String pass = Helper.getSHA512Hash(newUser.getPassword(), salt);
+        newUser.setSalt(salt);
+        newUser.setPassword(pass);
 
         Transaction tx = session.beginTransaction();
         session.save(newUser);

@@ -96,13 +96,13 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
     }
 
     @Override
-    public List<User> getUsersByGroup(Group group) throws Exception {
-        return groupDao.getGroupUser(group);
+    public ArrayList<User> getUsersByGroup(Group group) throws Exception {
+        return new ArrayList<>(groupDao.getGroupUser(group));
     }
 
     @Override
-    public List<Event> getEventsByGroup(Group group) throws Exception {
-        return groupDao.getGroupEvent(group);
+    public ArrayList<Event> getEventsByGroup(Group group) throws Exception {
+        return new ArrayList<>(groupDao.getGroupEvent(group));
     }
 
     @Override

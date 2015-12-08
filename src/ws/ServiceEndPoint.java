@@ -6,8 +6,6 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebService(name = "java2_server")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
@@ -38,10 +36,10 @@ public interface ServiceEndPoint {
     public void sendMessage(@WebParam(name = "message") Message message) throws Exception;
 
     @WebMethod
-    public ArrayList<Message> getOutMessages(@WebParam(name = "userId") Long id ) throws Exception;
+    public Wrapper<Message> getOutMessages(@WebParam(name = "userId") Long id ) throws Exception;
 
     @WebMethod
-    public ArrayList<Message> getInMessages(@WebParam(name = "userId") Long id ) throws Exception;
+    public Wrapper<Message> getInMessages(@WebParam(name = "userId") Long id ) throws Exception;
 
     @WebMethod
     public void updateMessage(@WebParam(name = "message") Message message) throws Exception;
@@ -66,7 +64,7 @@ public interface ServiceEndPoint {
     public Wrapper<User> getUsersByGroup(@WebParam(name = "group") Group group) throws Exception;
 
     @WebMethod
-    public ArrayList<Event> getEventsByGroup(@WebParam(name = "group") Group group) throws Exception;
+    public Wrapper<Event> getEventsByGroup(@WebParam(name = "group") Group group) throws Exception;
     // GROUPSERVICE END
 
     // EVENTSERVICE START
@@ -96,7 +94,7 @@ public interface ServiceEndPoint {
     @WebMethod
     public void deleteLocation(@WebParam(name = "location") Location location) throws Exception;
 
-    public ArrayList<Location> getAllLocation() throws Exception;
+    public Wrapper<Location> getAllLocation() throws Exception;
     // LOCATION SERVICE END
 
 }

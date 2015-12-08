@@ -57,13 +57,13 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
     }
 
     @Override
-    public ArrayList<Message> getOutMessages(Long id) throws Exception {
-        return new ArrayList<>(messageDao.getOutMessages(id));
+    public Wrapper<Message> getOutMessages(Long id) throws Exception {
+        return new Wrapper<Message>(messageDao.getOutMessages(id));
     }
 
     @Override
-    public ArrayList<Message> getInMessages(Long id) throws Exception {
-        return new ArrayList<>(messageDao.getInMessages(id));
+    public Wrapper<Message> getInMessages(Long id) throws Exception {
+        return new Wrapper<Message>(messageDao.getInMessages(id));
     }
 
     @Override
@@ -102,8 +102,8 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
     }
 
     @Override
-    public ArrayList<Event> getEventsByGroup(Group group) throws Exception {
-        return new ArrayList<>(groupDao.getGroupEvent(group));
+    public Wrapper<Event> getEventsByGroup(Group group) throws Exception {
+        return new Wrapper<Event>(groupDao.getGroupEvent(group));
     }
 
     @Override
@@ -147,8 +147,8 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
     }
 
     @Override
-    public ArrayList<Location> getAllLocation() throws Exception {
-        return new ArrayList<>(locationDao.getAllLocation());
+    public Wrapper<Location> getAllLocation() throws Exception {
+        return new Wrapper<Location>(locationDao.getAllLocation());
     }
 
 }

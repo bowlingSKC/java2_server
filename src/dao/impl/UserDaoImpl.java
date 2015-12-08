@@ -35,11 +35,6 @@ public class UserDaoImpl implements UserDao {
             throw new EmailAlreadyExistsInDatabaseException();
         }
 
-        String salt = Helper.getSalt();
-        String pass = Helper.getSHA512Hash(newUser.getPassword(), salt);
-        newUser.setSalt(salt);
-        newUser.setPassword(pass);
-
         Transaction tx = session.beginTransaction();
         session.save(newUser);
         tx.commit();
@@ -69,7 +64,7 @@ public class UserDaoImpl implements UserDao {
             throw new BadLoginException();
         }
 
-        if( !Helper.getSHA512Hash(password, selected.getSalt()).equals(selected.getPassword()) ) {
+        if( !password.equals(selected.getPassword()) ) {
             Publisher.LOGGER.warn("Hibas jelszoval probaltak belepni:" + email);
             throw new BadLoginException();
         }
@@ -90,12 +85,9 @@ public class UserDaoImpl implements UserDao {
             throw new NoSuchEmailInDatabase();
         }
 
-        String newSalt = Helper.getSalt();
-        String newPlainPass = Helper.generateNewPassword();
-        String newPass = Helper.getSHA512Hash(newPlainPass, newSalt);
-        sendEmail(user.getEmail(), "Új jelszó", "Az uj jelszavad: " + newPlainPass);
+        String newPass = Helper.generateNewPassword();
+        sendEmail(user.getEmail(), "Új jelszó", "Az uj jelszavad: " + newPass);
 
-        user.setSalt(newSalt);
         user.setPassword(newPass);
         updateUser(user);
 
@@ -121,8 +113,6 @@ public class UserDaoImpl implements UserDao {
         if( user == null ) {
             throw new NoSuchEmailInDatabase();
         }
-
-        user.jaxbObjectToXML();
 
         return user;
     }

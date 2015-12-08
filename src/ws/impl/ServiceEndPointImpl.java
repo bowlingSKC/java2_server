@@ -65,7 +65,7 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
 
     @Override
     public Wrapper<Message> getInMessages(Long id) throws Exception {
-        return new Wrapper<>(messageDao.getInMessages(id));
+        return messageDao.getInMessages(id);
     }
 
     @Override
@@ -100,17 +100,17 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
 
     @Override
     public Wrapper<User> getUsersByGroup(Group group) throws Exception {
-        return new Wrapper<>(groupDao.getGroupUser(group));
+        return groupDao.getGroupUser(group);
     }
 
     @Override
     public Wrapper<Event> getEventsByGroup(Group group) throws Exception {
-        return new Wrapper<>(groupDao.getGroupEvent(group));
+        return groupDao.getGroupEvent(group);
     }
 
     @Override
     public Wrapper<Group> getAllGroup() throws Exception {
-        return new Wrapper<>(groupDao.getAllGroup());
+        return groupDao.getAllGroup();
     }
 
     @Override

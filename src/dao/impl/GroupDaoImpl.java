@@ -8,6 +8,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ws.Publisher;
+import ws.Wrapper;
 
 import javax.xml.bind.annotation.XmlSeeAlso;
 import java.util.ArrayList;
@@ -66,7 +67,7 @@ public class GroupDaoImpl implements GroupDao {
     }
 
     @Override
-    public List<User> getGroupUser(Group group) throws Exception {
+    public Wrapper<User> getGroupUser(Group group) throws Exception {
         Session session = SessionUtil.openSession();
         Transaction tx = session.beginTransaction();
         Query query = session.createQuery("from Group where id = :id");
@@ -82,11 +83,11 @@ public class GroupDaoImpl implements GroupDao {
         tx.commit();
         session.close();
 
-        return users;
+        return new Wrapper<>(users);
     }
 
     @Override
-    public List<Event> getGroupEvent(Group group) throws Exception {
+    public Wrapper<Event> getGroupEvent(Group group) throws Exception {
         Session session = SessionUtil.openSession();
         Transaction tx = session.beginTransaction();
         Query query = session.createQuery("from Group where id = :id");
@@ -100,11 +101,11 @@ public class GroupDaoImpl implements GroupDao {
         tx.commit();
         session.close();
 
-        return selected.getEvents();
+        return new Wrapper<>(selected.getEvents());
     }
 
     @Override
-    public List<Group> getAllGroup() throws Exception {
+    public Wrapper<Group> getAllGroup() throws Exception {
         Session session = SessionUtil.openSession();
         Transaction tx = session.beginTransaction();
         Query query = session.createQuery("from Group");
@@ -114,6 +115,6 @@ public class GroupDaoImpl implements GroupDao {
         tx.commit();
         session.close();
 
-        return groups;
+        return new Wrapper<>(groups);
     }
 }

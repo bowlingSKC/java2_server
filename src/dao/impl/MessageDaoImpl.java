@@ -8,12 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import ws.Wrapper;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 @XmlSeeAlso({Message.class, User.class, Group.class, Location.class, Message.class, UserGroup.class})
@@ -78,14 +73,14 @@ public class MessageDaoImpl implements MessageDao {
     }
 
     @Override
-    public List<Message> getInMessages(Long id) {
+    public Wrapper<Message> getInMessages(Long id) {
         List<Message> messages = null;
         Session session = SessionUtil.openSession();
         Query query = session.createQuery("from User where id = :id");
         query.setParameter("id", id);
         messages = ((User)query.uniqueResult()).getInMessages();
         session.close();
-        return messages;
+        return new Wrapper<>(messages);
     }
 
 }

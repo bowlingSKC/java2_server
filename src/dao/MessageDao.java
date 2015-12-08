@@ -14,6 +14,6 @@ public interface MessageDao {
     public void updateMessage(Message message);
 
     public Wrapper<Message> getOutMessages(Long id);
-    public List<Message> getInMessages(Long id);
+    public Wrapper<Message> getInMessages(Long id);
 
 }

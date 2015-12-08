@@ -63,7 +63,7 @@ public interface ServiceEndPoint {
     public void leveGroup(@WebParam(name = "group")Group group, @WebParam(name = "user") User user) throws Exception;
 
     @WebMethod
-    public ArrayList<User> getUsersByGroup(@WebParam(name = "group") Group group) throws Exception;
+    public Wrapper<User> getUsersByGroup(@WebParam(name = "group") Group group) throws Exception;
 
     @WebMethod
     public ArrayList<Event> getEventsByGroup(@WebParam(name = "group") Group group) throws Exception;

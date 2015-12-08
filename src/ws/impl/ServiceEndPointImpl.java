@@ -4,6 +4,7 @@ import dao.*;
 import dao.impl.*;
 import model.*;
 import ws.ServiceEndPoint;
+import ws.Wrapper;
 
 import javax.jws.WebService;
 import javax.xml.ws.soap.MTOM;
@@ -96,8 +97,8 @@ public class ServiceEndPointImpl implements ServiceEndPoint {
     }
 
     @Override
-    public ArrayList<User> getUsersByGroup(Group group) throws Exception {
-        return new ArrayList<>(groupDao.getGroupUser(group));
+    public Wrapper<User> getUsersByGroup(Group group) throws Exception {
+        return new Wrapper<User>(groupDao.getGroupUser(group));
     }
 
     @Override

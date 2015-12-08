@@ -9,6 +9,7 @@ import model.User;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import ws.Helper;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -16,7 +17,9 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.security.SecureRandom;
 import java.util.Properties;
+import java.util.Random;
 
 public class UserDaoImpl implements UserDao {
 
@@ -38,8 +41,6 @@ public class UserDaoImpl implements UserDao {
         session.save(newUser);
         tx.commit();
         session.close();
-
-        System.out.println("User created.");
     }
 
     @Override
@@ -49,8 +50,6 @@ public class UserDaoImpl implements UserDao {
         session.delete(user);
         tx.commit();
         session.close();
-
-        System.out.println("User deleted.");
     }
 
     @Override
@@ -60,12 +59,10 @@ public class UserDaoImpl implements UserDao {
         query.setParameter("mail", email);
         User selected = (User) query.uniqueResult();
         if( selected == null ) {
-            System.out.println("nincs talalat");
             throw new BadLoginException();
         }
 
         if( !selected.getPassword().equals(password) ) {
-            System.out.println("rossz adatok");
             throw new BadLoginException();
         }
 
@@ -84,10 +81,13 @@ public class UserDaoImpl implements UserDao {
             throw new NoSuchEmailInDatabase();
         }
 
-        // E-mail kikuldese
-        sendEmail(user.getEmail(), "Új jelszó", "Az uj jelszavad: kabbeafaszom");
+        String newSalt = Helper.getSalt();
+        String newPlainPass = Helper.generateNewPassword();
+        String newPass = Helper.getSHA512Hash(newPlainPass, newSalt);
+        sendEmail(user.getEmail(), "Új jelszó", "Az uj jelszavad: " + newPlainPass);
 
-        user.setPassword("kabbeafaszom");
+        user.setSalt(newSalt);
+        user.setPassword(newPass);
         updateUser(user);
     }
 
